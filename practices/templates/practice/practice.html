@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="col-md-6 d-inline">{{ practice.title }}</h2>({{ practice.created.strftime('%d.%m.%Y') }})
+{% if current_user.has_role('Admin') %}
+<a href="{{ url_for('practices.create_practice') }}/{{ practice.id }}" class="btn btn-secondary float-right m-2">Редактировать</a>
+{% endif %}
+
+
+<hr>
+<p>{{ text|safe }}</p>
+<hr>
+{% endblock %}

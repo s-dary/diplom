@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Вопросы</h2>
+
+{% for task in tasks_list %}
+<hr>
+<div>
+    <a href="{{ url_for('tasks.get_task', id=task.id) }}"><h3>{{ task.task }}</h3></a>
+    {% if task.comment|length > 200 %}
+    <p>{{ task.comment[:200] }}</p>
+    {% else %}
+    <p>{{ task.comment }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block search %}
+
+<form class="form-inline my-2 my-lg-0" method="get">
+    <input class="form-control mr-sm-2" type="search" placeholder="Поиск" name="search"
+           value="{{ request.args.get('search', '') }}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
+
+{% endblock %}
+
+{% block content %}
+{% if current_user.has_role('Admin') %}
+<h2 class="col-md d-inline">Уроки</h2><a href="{{ url_for('articles.create_article') }}" class="btn btn-secondary float-right m-2">Создать</a>
+{% endif %}
+
+{% for article in article_list %}
+<hr>
+<div>
+    <a href="{{ url_for('articles.get_article', id=article.id) }}"><h3>{{ article.title }}</h3></a>
+    {% if article.text|length  > 200 %}
+    <p>{{ article.text[:200] }}</p>
+    {% else %}
+    <p>{{ article.text }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

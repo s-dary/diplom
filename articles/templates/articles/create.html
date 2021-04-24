@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Создание статьи</h2>
+<hr>
+{% if id %}
+<form action="{{ url_for('articles.create_article') }}/{{ id }}" enctype="multipart/form-data" method="post" class="col-md-6">
+{% else %}
+<form action="{{ url_for('articles.create_article') }}" enctype="multipart/form-data" method="post" class="col-md-6">
+{% endif %}
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label(class='control-label') }}
+        {{ field(class='form-control') }}
+    </div>
+    {% endfor %}
+
+    <div class="form-group">
+        <label class="control-label" for="img">Добавить изображение</label>
+        <input class="btn btn-secondary" id="img" onchange="handleFile(this);" type="file" />
+        <input id="data" name="resources" type="hidden" />
+    </div>
+
+    {% if id %}
+    <button type="submit" class="btn btn-secondary">Редактировать</button>
+    {% else %}
+    <button type="submit" class="btn btn-secondary">Создать</button>
+    {% endif %}
+
+</form>
+
+    {% endblock %}

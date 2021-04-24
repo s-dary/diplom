@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="col-md-6 d-inline">{{ article.title }}</h2>({{ article.created.strftime('%d.%m.%Y') }})
+{% if current_user.has_role('Admin') %}
+<a href="{{ url_for('articles.create_article') }}/{{ article.id }}" class="btn btn-secondary float-right m-2">Редактировать</a>
+{% endif %}
+
+
+<hr>
+<p>{{ text|safe }}</p>
+<hr>
+{% if article.tasks %}
+<a href="{{ url_for('articles.get_tasks', id=article.id) }}" class="mx-auto  btn btn-secondary">Пройти тестирование</a>
+{% endif %}
+{% endblock %}

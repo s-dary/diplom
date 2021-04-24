@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block search %}
+
+<form class="form-inline my-2 my-lg-0" method="get">
+    <input class="form-control mr-sm-2" type="search" placeholder="Поиск" name="search"
+           value="{{ request.args.get('search', '') }}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
+
+{% endblock %}
+
+{% block content %}
+{% if current_user.has_role('Admin') %}
+<h2 class="col-md d-inline">Практика</h2><a href="{{ url_for('practices.create_practice') }}" class="btn btn-secondary float-right m-2">Создать</a>
+{% endif %}
+
+{% for practice in practice_list %}
+<hr>
+<div>
+    <a href="{{ url_for('practices.get_practice', id=practice.id) }}"><h3>{{ practice.title }}</h3></a>
+    {% if practice.text|length  > 200 %}
+    <p>{{ practice.text[:200] }}</p>
+    {% else %}
+    <p>{{ practice.text }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ task.task }}</h2>
+
+<hr>
+{% if task.comment %}
+<p>{{ task.comment }}</p>
+<hr>
+{% endif %}
+
+{% for answer in task.answer %}
+<label><input type="radio" name="answer" value="{{ answer.right }}">{{ answer.answer }}</label>
+<br>
+{% endfor %}
+{% endblock %}
